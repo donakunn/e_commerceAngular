@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorie</title>
+</head>
+
+<body class="container">
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div id="categoryContainer" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div *ngFor="let categoria of listaCategorie">
+                    <a routerLink="/products">
+                        <div class="card">
+                            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                                <img src="{{categoria.percorso}}" class="img-fluid" style="height:225px;" />
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{categoria.nome}}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <c-footer></c-footer>
+</body>
+
+</html>
