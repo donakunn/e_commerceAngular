@@ -43,7 +43,6 @@ var mongodb_1 = require("mongodb");
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 var cors_1 = __importDefault(require("cors"));
-var categoria_model_1 = require("../frontend/src/app/model/categoria.model");
 var prodotto_model_1 = require("../frontend/src/app/model/prodotto.model");
 var app = express_1.default();
 app.use(cors_1.default());
@@ -166,7 +165,7 @@ app.get('/getCategorie', function (req, res) { return __awaiter(void 0, void 0, 
                 cursore = _a.sent();
                 retrievedDocs = new Array();
                 return [4 /*yield*/, cursore.forEach(function (documento) {
-                        retrievedDocs.push(new categoria_model_1.Categoria(documento.nome, documento.percorso));
+                        retrievedDocs.push(documento);
                     })];
             case 2:
                 _a.sent();
@@ -205,7 +204,7 @@ app.get('/getProdotti/:id', function (req, res) { return __awaiter(void 0, void 
                 cursore = _a.sent();
                 retrievedDocs = new Array();
                 return [4 /*yield*/, cursore.forEach(function (documento) {
-                        retrievedDocs.push(new prodotto_model_1.Prodotto(documento.nome, documento.categoria, documento.percorso, documento.prezzo));
+                        retrievedDocs.push(new prodotto_model_1.Prodotto(documento._id.toString(), documento.nome, documento.categoria, documento.percorso, documento.prezzo));
                     })];
             case 2:
                 _a.sent();
@@ -244,7 +243,7 @@ app.get('/getProdotti', function (req, res) { return __awaiter(void 0, void 0, v
                 cursore = _a.sent();
                 retrievedDocs = new Array();
                 return [4 /*yield*/, cursore.forEach(function (documento) {
-                        retrievedDocs.push(new prodotto_model_1.Prodotto(documento.nome, documento.categoria, documento.percorso, documento.prezzo));
+                        retrievedDocs.push(new prodotto_model_1.Prodotto(documento._id.toString(), documento.nome, documento.categoria, documento.percorso, documento.prezzo));
                     })];
             case 2:
                 _a.sent();

@@ -11,17 +11,13 @@ import { catchError, retry } from 'rxjs/operators';
 export class CategorieService {
   
   serverURL = 'http://localhost:3000';
-  listaCategorie : ReplaySubject<Categoria[]> = new ReplaySubject();
 
-  constructor(private _http:HttpClient) { 
-  
-    this._http.get<{result: Categoria[]}>(this.serverURL + '/getCategorie').subscribe((data) => {
-      this.listaCategorie.next(data.result);
-    });
+  constructor(private _http:HttpClient) {
   }
 
   getCategorie() : Observable<Object> {
-    return this.listaCategorie;
+    return this._http.get(`${this.serverURL}/getCategorie`);
+    // return this.listaCategorie;
   }
 
   insertCategoria(nuovaCat : Categoria) : Observable<any> {

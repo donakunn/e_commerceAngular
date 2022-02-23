@@ -2,8 +2,6 @@ import { Collection, Document, MongoClient, ObjectId } from "mongodb";
 import express from "express";
 import body from "body-parser";
 import cors from "cors";
-import { Categoria } from "../frontend/src/app/model/categoria.model"
-import { Prodotto} from "../frontend/src/app/model/prodotto.model"
 
 const app = express();
 
@@ -54,7 +52,7 @@ app.post('/registrati', async (req, res) => {
         username: req.body.username,
         codFiscale: req.body.codFiscale,
     });
-    res.send({ result: dbResult});
+    res.send({ result: dbResult });
 
 });
 
@@ -88,9 +86,9 @@ app.delete('/cancellaCat/:id', async (req, res) => {
 app.get('/getCategorie', async (req, res) => {
     console.log('lettura categorie');
     const cursore = await rifCollectionCats.find();
-    let retrievedDocs = new Array<Categoria>();
+    let retrievedDocs = new Array();
     await cursore.forEach(documento => {
-        retrievedDocs.push(new Categoria(documento._id.toString(),documento.nome, documento.percorso))
+        retrievedDocs.push(documento)
     });
     res.send({ result: retrievedDocs });
 
@@ -110,12 +108,12 @@ app.put('/modificaCat/:id', async (req, res) => {
 app.get('/getProdotti/:id', async (req, res) => {
     console.log('lettura prodotti da categoria');
     const cursore = await rifCollectionProds.find(
-        {"categoria":{$in: [req.params.id]}});
-    let retrievedDocs = new Array<Prodotto>();
+        { "categoria": { $in: [req.params.id] } });
+    let retrievedDocs = new Array();
     await cursore.forEach(documento => {
-        retrievedDocs.push(new Prodotto(documento._id.toString(), documento.nome, documento.categoria, documento.percorso, documento.prezzo))
+        retrievedDocs.push(documento);
+        res.send({ result: retrievedDocs });
     });
-    res.send({ result: retrievedDocs });
 });
 
 app.post('/nuovoProd', async (req, res) => {
@@ -127,208 +125,109 @@ app.post('/nuovoProd', async (req, res) => {
         prezzo: req.body.prezzo,
     });
     res.send({ result: dbResult });
-    
+
 });
+
 
 app.get('/getProdotti', async (req, res) => {
     console.log('lettura prodotti');
     const cursore = await rifCollectionProds.find();
-    let retrievedDocs = new Array<Prodotto>();
+    let retrievedDocs = new Array();
     await cursore.forEach(documento => {
-        retrievedDocs.push(new Prodotto(documento._id.toString(),documento.nome, documento.categoria,documento.percorso,documento.prezzo));
+        retrievedDocs.push(documento);
+        res.send({ result: retrievedDocs });
     });
-    res.send({ result: retrievedDocs });
 });
 
-// app.delete('/cancellaProd/:id', (req, res) => {
-//     let idprodotto = req.params.id;
-//     console.log('cancello prodotto con id: ' + idprodotto);
-//     let qry = `delete from prodotti  where idprodotti = ${idprodotto}`;
-//     db.query(qry, (err, result) => {
-//         if (result.affectedRows > 0) {
-//             res.send({
-//                 message: 'dati cancellati correttamente.'
-//             });
-//         } else {
-//             res.send({
-//                 message: 'Impossibile cancellare il prodotto selezionato.'
-//             });
-//         }
-//     })
-// });
+app.delete('/cancellaProd/:id', async (req, res) => {
+    console.log('cancello prodotto con id: ' + req.params.id);
+    const dbResult = await rifCollectionProds.deleteOne({ '_id': new ObjectId(req.params.id) });
+    res.send({
+        result: dbResult,
+    });
+});
 
-// app.put('/modificaProd/:id', (req, res) => {
+app.put('/modificaProd/:id', async (req, res) => {
+    console.log(`modifico prodotto con id:${req.params.id}`);
+    const dbResult = await rifCollectionProds.updateOne({ '_id': new ObjectId(req.params.id) }, {
+        $set: {
+            nome: req.body.nome,
+            percorso: req.body.percorso,
+            prezzo: req.body.prezzo
+        }
+    });
+    res.send({ result: dbResult });
+});
 
-//     let idprodotto = req.params.id;
+app.delete('/cancellaTuttiProd/:id', async (req, res) => {
+    console.log('cancello tutti i prodotti con id categoria: ' + req.params.id);
+    const dbResult = await rifCollectionProds.deleteMany({ '_id': new ObjectId(req.params.id) });
+    res.send({ result: dbResult });
+});
 
-//     let nome = req.body.nome;
-//     let percorso = req.body.percorso;
-//     let prezzo = req.body.prezzo;
-//     let qry = `update prodotti set nome = '${nome}', percorso = '${percorso}', prezzo = '${prezzo}' where idprodotti = ${idprodotto}`;
-//     db.query(qry, (err, result) => {
-//         res.send({
-//             message: 'dati modificati correttamente.'
-//         });
-//     })
-// });
+app.get('/getUtenti/:affidabile', async (req, res) => {
+    console.log('lettura utenti per affidabilita');
+    const cursore = await rifCollectionAnag.find(
+        { "affidabile": { $in: [req.params.affidabile] } });
+    let retrievedDocs = new Array();
+    await cursore.forEach(documento => {
+        retrievedDocs.push(documento);
+        res.send({ result: retrievedDocs });
+    });
+});
 
-// app.delete('/cancellaTuttiProd/:id', (req, res) => {
-//     let idcategoria = req.params.id;
-//     console.log('cancello tutti i prodotti con id categoria: ' + idcategoria);
-//     let qry = `delete from prodotti  where categoria = ${idcategoria}`;
-//     db.query(qry, (err, result) => {
-//         if (result.affectedRows > 0) {
-//             res.send({
-//                 message: 'dati cancellati correttamente.'
-//             });
-//         } else {
-//             res.send({
-//                 message: 'Impossibile cancellare i prodotti selezionato.'
-//             });
-//         }
-//     })
-// });
+app.get('/getUtente/:id', async (req, res) => {   //check
+    console.log(`lettura utente con id ${req.params.id}`);
+    const cursore = await rifCollectionAnag.find(
+        { "_id": { $in: [req.params.id] } });
+    let retrievedDocs = new Array();
+    await cursore.forEach(documento => {
+        retrievedDocs.push(documento);
+        res.send({ result: retrievedDocs });
 
-// app.get('/getUtenti/:id', (req, res) => {
-//     console.log('lettura utenti');
-//     let affidabile = req.params.id;
-//     let qry = `select * from utenti where affidabile = ${affidabile}`;
+    });
+});
 
-//     db.query(qry, (err, result) => {
-//         if (result.length > 0) {
-//             res.send({
-//                 message: 'utenti trovati',
-//                 utenti: result
-//             })
-//         } else {
-//             res.status = 400;
-//             res.send({
-//                 message: 'nessun utente trovato'
-//             })
-//         }
-//     })
-// });
-
-// app.get('/getUtente/:id', (req, res) => {
-//     console.log('lettura utenti');
-//     let qry = `select * from utenti where idutenti = ${req.params.id}`;
-
-//     db.query(qry, (err, result) => {
-//         if (result.length > 0) {
-//             res.send({
-//                 message: 'utenti trovati',
-//                 utenti: result
-//             })
-//         } else {
-//             res.status = 400;
-//             res.send({
-//                 message: 'nessun utente trovato'
-//             })
-//         }
-//     })
-// });
-
-// app.put('/cambiaAff/:id', (req, res) => {
-
-//     let idUt = req.params.id;
-
-//     let nuovaAff = req.body.affidabilita;
-//     let qry = `update utenti set affidabile = '${nuovaAff}' where idutenti = ${idUt}`;
-//     db.query(qry, (err, result) => {
-//         res.send({
-//             message: 'affidabilità cambiata correttamente.'
-//         });
-//     })
-// });
+app.put('/cambiaAff/:id', async (req, res) => {
+    console.log(`cambio affidabilità su id: ${req.params.id}`);
+    const dbResult = await rifCollectionAnag.updateOne({ '_id': new ObjectId(req.params.id) }, {
+        $set: {
+            affidabilita: req.body.affidabilita,
+        }
+    });
+    res.send({ result: dbResult });
+});
 
 
-// app.delete('/cancellaUt/:id', (req, res) => {
-//     let idUt = req.params.id;
-//     console.log('cancello utente con id: ' + idUt);
-//     let qry = `delete from utenti where idutenti = ${idUt}`;
-//     db.query(qry, (err, result) => {
-//         if (result.affectedRows > 0) {
-//             res.send({
-//                 message: 'dati cancellati correttamente.'
-//             });
-//         } else {
-//             res.send({
-//                 message: 'Impossibile cancellare utente selezionato.'
-//             });
-//         }
-//     })
-// });
+app.delete('/cancellaUt/:id', async (req, res) => {
+    console.log('cancello utente con id: ' + req.params.id);
+    const dbResult = await rifCollectionAnag.deleteOne({ '_id': new ObjectId(req.params.id) });
+    res.send({
+        result: dbResult,
+    });
+});
 
-// app.put('/modificaUt/:id', (req, res) => {
-//     console.log('modifico utente');
-//     let user = req.body;
-//     console.log(user);
-//     let qry = `update utenti set nome = '${user.nome}', cognome = '${user.cognome}', email = '${user.email}', password = '${user.password}', 
-//     partitaiva = '${user.partitaiva}', nazione = '${user.nazione}', indirizzo = '${user.indirizzo}', telefono = '${user.telefono}', username = '${user.username}', codfiscale = '${user.codfiscale}' where idutenti = ${user.idutenti}`;
-//     db.query(qry, (err, result) => {
-//         res.send({
-//             message: 'dati modificati correttamente.',
-
-//         });
-//     })
-// });
-
-// app.post('/inserimento', async (req, res) => {      //esempio di post
-//     let nome = req.body.nome;
-//     let cognome = req.body.cognome;
-//     console.log('inserimento in corso');
-//     const utente = {
-//         nome: nome,
-//         cognome: cognome
-//     }
-//     const ris = await rifCollectionAnag.insertOne(utente);
-//     res.send({ messaggio: 'Nuovo utente inserito corretamente' });
-// });
-
-// app.get('/getUtente/:id', async (req, res) => {
-//     console.log('inside');
-//     let idUtente = new ObjectId(req.params.id);
-
-//     const ris = await rifCollectionAnag.findOne({ "_id": idUtente });
-//     res.send({ result: ris });
-//     console.log('dati letti dal db: ' + ris);
-// })
-
-// app.get('/utenti', async (req, res) => {
-//     console.log('inside');
-//     let idUtente = new ObjectId(req.params.id);
-
-//     const ris = await rifCollectionAnag.findOne({ "_id": idUtente });
-//     res.send({ result: ris });
-//     console.log('dati letti dal db: ' + ris);
-// })
-
-// //Modifica nel database
-// app.put('/modifica/:id', async (req, res) => {
-//     //let nome = req.body.nome;
-//     //let cognome = req.body.cognome;
-
-//     let mod = {
-//         $set: req.body, //{
-//         //   nome: nome,
-//         //   cognome: cognome,
-//         // },
-//     };
-
-//     const ris = await rifCollectionAnagrafica.updateOne(
-//         { _id: new ObjectId(req.params.id) },
-//         mod
-//     );
-
-//     res.send({
-//         risultato: ris,
-//     });
-// });
-
-// //Cancella nel database
-// app.put('/cancella/:id', async (req, res) => {
-
-// });
-
-
-
+app.put('/modificaUt/:id', async (req, res) => {
+    console.log('modifico utente');
+    let user = req.body;
+    const dbResult = await rifCollectionProds.updateOne({ '_id': new ObjectId(req.params.id) }, {
+        $set: {
+            nome: user.nome,
+            cognome: user.cognome,
+            email: user.email,
+            password: user.password,
+            partitaiva: user.partitaiva,
+            nazione: user.nazione,
+            indirizzo: {
+                via: user.via,
+                comune: user.comune,
+                cap: user.cap,
+                provincia: user.provincia
+            },
+            telefono: user.telefono,
+            username: user.username,
+            codFiscale: user.codFiscale,
+        }
+    });
+    res.send({ result: dbResult });
+});

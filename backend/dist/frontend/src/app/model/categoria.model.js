@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Categoria = /** @class */ (function () {
-    function Categoria(nome, percorso) {
+    function Categoria(idCategoria, nome, percorso) {
+        this._idCategoria = idCategoria;
         this._nome = nome;
         this._percorso = percorso;
     }

@@ -28,5 +28,4 @@ export class Categoria {
     public set percorso(percorso: string) {
         this._percorso = percorso;
     }
-
 }

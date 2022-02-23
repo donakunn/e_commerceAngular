@@ -10,9 +10,10 @@ export class SingolacategoriaComponent implements OnInit {
 
   @Input() categoria : Categoria;
   
-  constructor() { }
+  constructor() {
+   }
 
-  ngOnInit(): void { console.log(this.categoria);
+  ngOnInit(): void { console.log(this.categoria.nome);
   
   }
 
