@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Mostra Utenti</title>
+</head>
+
+<body>
+    <div class="container justify-content-between" style="margin-top: 5rem;">
+        <div class="col-1"></div>
+        <select id='tipiUtenti' class="select">
+            <option value="1">Affidabile</option>
+            <option value="0">Non Affidabile</option>
+          </select>
+        <br><br>
+        <div id="listaUtenti" style="list-style: none; font-size: larger;"></div>
+    </div>
+    <div id="result"></div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifica Utente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputNome" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Nome</label>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputCognome" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Cognome</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputemail" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">email</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputpassword" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Password</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputpiva" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">P.IVA</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputnazione" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Nazione</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputindirizzo" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Indirizzo</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputtelefono" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Telefono</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputUser" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Username</label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-8 mb-4 pb-2">
+
+                        <div class="form-outline form-white">
+                            <input type="text" id="inputcodfiscale" class="form-control form-control-lg" />
+                            <label class="form-label" for="inputUser">Codice Fiscale</label>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="salvaModificheUt" data-bs-dismiss="modal" class="btn btn-primary">Salva modifiche</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- <script>
+    let optionSec = document.getElementById("tipiUtenti");
+    optionSec.addEventListener("change", mostraUtenti);
+</script> -->
+
+</html>

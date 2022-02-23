@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+</head>
+
+<body class="container">
+    <div class="row">
+        <div class="column">
+            <nav class="py-2 bg-light border-bottom">
+                <div class="container d-flex flex-wrap">
+                    <ul class="nav me-auto">
+                        <li class="nav-item"><a routerLink="/about" class="nav-link link-dark px-2 active" aria-current="page">Chi siamo</a></li>
+                        <li class="nav-item"><a routerLink="/categories" class="nav-link link-dark px-2">Prodotti</a></li>
+                        <li class="nav-item"><a routerLink="/contacts" class="nav-link link-dark px-2">{{contacts}} </a></li>
+                        <li class="nav-item" id="adminPage"><a routerLink="/controlPanel" class="nav-link link-dark px-2">{{controlPanel}} </a></li>
+                    </ul>
+                    <ul class="nav">
+                        <li class="nav-item"><a routerLink="/login" class="nav-link link-dark px-2">{{login}}</a></li>
+                        <li class="nav-item"><a routerLink="/register" class="nav-link link-dark px-2">{{register}} </a></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </nav>
+            <header class="py-3 mb-4 border-bottom" id="SiteHeader" style="background-color: #f8f9fa;">
+                <div class="container d-flex flex-wrap justify-content-center">
+                    <a href="./index.html" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
+                        <img src="assets/img/free-store-icon-2017-thumb.png" height="60px" alt="Immagine negozio">
+                        <span class="fs-4"><h1> <strong> FilmPerTutti.it </strong></h1></span>
+                    </a>
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0" style="margin-top: 25px;">
+                        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                    </form>
+                    <a class="btn btn-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <img src="assets/img/shopping-cart-svg-png-icon-download-28.png" height="35px" alt="" style="margin-top :18px; border: 0px;"></a>
+                </div>
+            </header>
+
+        </div>
+    </div>
+    <cart></cart>
+
+</body>
+
+</html>

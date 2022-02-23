@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+</head>
+
+<body class="text-center">
+    <main class="form-signin">
+        <form>
+            <a href="index.html"><img src="../../assets/img/free-store-icon-2017-thumb.png" alt="store" height="100 rem"></a>
+            <h1 class="h3 mb-3 fw-normal">Login</h1>
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Indirizzo email</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="checkbox mb-3">
+                <label>
+            <input type="checkbox" value="remember-me"> Ricordami
+          </label>
+                <div class="col"><a href="#!">Password dimenticata?</a>
+                </div>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-light" type="button" onclick="login()" style="background-color: #ff7058;">Entra</button>
+            <br><br>
+            <div class="text-center">
+                <p style="font-size: medium;">Non sei un membro? <a href=" registrati.html ">Registrati</a></p>
+                <p style="font-size: medium;">oppure registrati con:</p>
+                <button type=" button " class="btn btn-primary btn-floating mx-1 ">
+                  <i class="fab fa-facebook-f "></i>
+                </button>
+
+                <button type="button " class="btn btn-primary btn-floating mx-1 ">
+                  <i class="fab fa-google "></i>
+                </button>
+
+                <button type="button " class="btn btn-primary btn-floating mx-1 ">
+                  <i class="fab fa-twitter "></i>
+                </button>
+
+                <button type="button " class="btn btn-primary btn-floating mx-1 ">
+                  <i class="fab fa-github "></i>
+                </button>
+
+            </div>
+            <div id="loginResult"></div>
+        </form>
+    </main>
+
+</body>
+
+</html>

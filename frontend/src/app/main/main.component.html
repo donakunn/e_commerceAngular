@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+
+
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <div class="row">
+            <div class="col">
+                <ngb-carousel *ngIf="images">
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img [src]="images[0]" alt="Random first slide" style="position : center;" class="d-block w-100">
+                        </div>
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img [src]="images[1]" alt="Random second slide" class="d-block w-100">
+                        </div>
+
+                    </ng-template>
+                    <ng-template ngbSlide>
+                        <div class="picsum-img-wrapper">
+                            <img [src]="images[2]" alt="Random third slide" class="d-block w-100">
+                        </div>
+
+                    </ng-template>
+                </ngb-carousel>
+
+            </div>
+        </div>
+        <div class="container marketing">
+            <div class="row">
+                <hr class="featurette-divider">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">I migliori film. <span class="text-muted">A prezzi
+                                imbattibili.</span></h2>
+                        <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem repudiandae sequi dolorem deleniti eveniet nisi, nemo atque qui voluptatum rerum eos, laborum suscipit error nostrum voluptatem iusto fugit possimus aliquam.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="products.html"><img src="assets/img/primoRe.jpg" alt="Il Primo Re" height="500px" width="500px"></a>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <div class="row featurette">
+                    <div class="col-md-7 order-md-2">
+                        <h2 class="featurette-heading">I film che hanno fatto la storia. <span class="text-muted">Come
+                                "The Shining".</span></h2>
+                        <p class="lead">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos, maxime! Tenetur, quas non. Quis dolore ad impedit, veniam adipisci consequuntur iure nobis? Illum doloremque adipisci aperiam dolor recusandae nam tempore?
+                    </div>
+                    <div class="col-md-5 order-md-1">
+                        <a href="products.html"><img src="assets/img/serietv_habitissimo_copertina-500x500.jpg" alt="The Shining" width="500px" height="500px"></a>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Sfoglia il nostro catalogo. <span class="text-muted">Non resterai
+                                deluso.</span></h2>
+                        <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="products.html"><img src="assets/img/maxw-824.jpg" alt="The Martian" width="500px" height="500px" />
+                        </a>
+
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+            </div>
+            <div id="footer"></div>
+        </div>
+        <!-- Footer -->
+        <c-footer></c-footer>
+    </div>
+</body>
+
+</html>

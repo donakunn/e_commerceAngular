@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body class="container">
+    <form [formGroup]="formUtente">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px; ">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <h3 class="fw-normal mb-5" style="color: 
+                                                    #ff7058;">Informazioni Generali</h3>
+                                        <div class="mb-4 pb-2">
+                                            <select class="select" (change)="cambiaEtichetta()" formControlName="tipoUtente">
+                                                <option value="1">Privato</option>
+                                                <option value="2">Azienda</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="text" formControlName="nome" class="form-control form-control-lg" />
+                                                    <label class="form-label" #labelNome for="inputNome">Nome</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline">
+                                                    <input type="text" #inputCognome formControlName="cognome" class="form-control form-control-lg" />
+                                                    <label class="form-label" #labelCognome for="inputCognome">Cognome</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline">
+                                                <input type="number" formControlName="piva" class="form-control form-control-lg" />
+                                                <label class="form-label" for="inputIVA">P. IVA</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2 mb-md-0 pb-md-0">
+
+                                                <div class="form-outline">
+                                                    <input type="text" formControlName="codfiscale" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputCF">Codice Fiscale</label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 bg-indigo text-white">
+                                    <div class="p-5" style="background-color: #ff7058; border-radius: 15px;">
+                                        <h3 class="fw-normal mb-5">Dettagli Contatto</h3>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" formControlName="nazione" class="form-control form-control-lg" />
+                                                <label class="form-label" for="inputNaz">Nazione</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" formControlName="via" class="form-control form-control-lg" />
+                                                <label class="form-label" for="inputVia">Via</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-5 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="number" formControlName="cap" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputCAP">CAP</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="text" formControlName="comune" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputCom">Comune</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" formControlName="provincia" class="form-control form-control-lg" />
+                                                <label class="form-label" for="inputProv">Provincia</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <!-- <input type="text" formControlName="telefono" class="form-control form-control-lg" /> -->
+                                                    <label class="form-label" for="inputTel">Telefono
+                                                        fisso/Cellulare</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="text" formControlName="username" autocomplete="nickname" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputUser">Username</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="text" formControlName="email" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputEmail">Email</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4 pb-2">
+
+                                                <div class="form-outline form-white">
+                                                    <input type="password" formControlName="password" autocomplete="new-password" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="inputPass">Password</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check d-flex justify-content-start mb-4 pb-3">
+                                            <input class="form-check-input me-3" type="checkbox" value="" id="terms" />
+                                            <label class="form-check-label text-white" for="form2Example3">
+                                                Accetto i <a href="#!" class="text-white"><u>Termini e
+                                                        condizioni</u></a> del sito.
+                                            </label>
+                                        </div>
+
+                                        <button (click)="registrati()" type="button" [disabled]="!formUtente.valid" class="btn btn-light btn-lg" data-mdb-ripple-color="dark">Registrati</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <!-- <script>
+            let optionSec = document.getElementById("tipiUtenti");
+            optionSec.addEventListener("change", cambiaEtichetta);
+        </script>
+        <script>
+            homeInit(); //Adds a grid to the html
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+</body>
+
+</html>
