@@ -9,16 +9,17 @@ import { ProdottiService } from '../services/prodotti.service';
 })
 export class CartComponent implements OnInit {
 
-  listaProdotti : Prodotto[];
+  listaProdotti : Array<Prodotto> = [];
 
   constructor(private listaProdottiService : ProdottiService) {
 
    }
 
   ngOnInit(): void {
-    this.listaProdottiService.getCartProdotti().subscribe( (receivedData : any) =>{ 
-      this.listaProdotti = receivedData;
+    this.listaProdottiService.getProdotti().subscribe( (receivedData : any) =>{ 
+      this.listaProdotti = receivedData.result;  
     })
+  
   }
 
   calcolaTotale() : number{

@@ -2,19 +2,35 @@ import { Collection, Document, MongoClient, ObjectId } from "mongodb";
 import express from "express";
 import body from "body-parser";
 import cors from "cors";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const app = express();
 
 app.use(cors());
 app.use(body.json());
+const urlDb = 'mongodb://localhost:27017/ecommerce';
 
-const urlDb = 'mongodb://localhost:27017/utenti';
 let rifDb;
 let rifCollectionAnag: Collection<Document>;
 let rifCollectionCats: Collection<Document>;
 let rifCollectionProds: Collection<Document>;
 
 const mongoClient = new MongoClient(urlDb);
+
+app.use(session({
+    secret: 'chiave',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+    genid: () => uuidv4(),
+    store: new MongoStore({
+        client: mongoClient,
+        dbName: 'ecommerce'
+    }),
+}))
 
 async function run() {
     await mongoClient.connect();
@@ -27,8 +43,6 @@ async function run() {
     rifCollectionAnag = rifDb.collection('utenti');
     rifCollectionCats = rifDb.collection('categorie');
     rifCollectionProds = rifDb.collection('prodotti');
-
-
 }
 
 run();
@@ -52,8 +66,7 @@ app.post('/registrati', async (req, res) => {
         username: req.body.username,
         codFiscale: req.body.codFiscale,
     });
-    res.send({ result: dbResult });
-
+    res.send({ result: dbResult});
 });
 
 app.get('/login', async (req, res) => {
@@ -62,8 +75,19 @@ app.get('/login', async (req, res) => {
         "email": req.query.email,
         "password": req.query.password
     });
+    if (dbResult != null) {
+        req.session.username = dbResult.username;    
+    }
     res.send({ result: dbResult });
 });
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.send('Logout avvenuto con successo');
+    });
+
+});
+
 
 app.post('/nuovaCat', async (req, res) => {
     console.log('aggiunta categoria in corso');
@@ -112,8 +136,8 @@ app.get('/getProdotti/:id', async (req, res) => {
     let retrievedDocs = new Array();
     await cursore.forEach(documento => {
         retrievedDocs.push(documento);
-        res.send({ result: retrievedDocs });
     });
+    res.send({ result: retrievedDocs });
 });
 
 app.post('/nuovoProd', async (req, res) => {
@@ -134,9 +158,9 @@ app.get('/getProdotti', async (req, res) => {
     const cursore = await rifCollectionProds.find();
     let retrievedDocs = new Array();
     await cursore.forEach(documento => {
-        retrievedDocs.push(documento);
-        res.send({ result: retrievedDocs });
+        retrievedDocs.push(documento); 
     });
+    res.send({ result: retrievedDocs });
 });
 
 app.delete('/cancellaProd/:id', async (req, res) => {
@@ -152,6 +176,7 @@ app.put('/modificaProd/:id', async (req, res) => {
     const dbResult = await rifCollectionProds.updateOne({ '_id': new ObjectId(req.params.id) }, {
         $set: {
             nome: req.body.nome,
+            categoria: req.body.categoria,
             percorso: req.body.percorso,
             prezzo: req.body.prezzo
         }
@@ -172,8 +197,8 @@ app.get('/getUtenti/:affidabile', async (req, res) => {
     let retrievedDocs = new Array();
     await cursore.forEach(documento => {
         retrievedDocs.push(documento);
-        res.send({ result: retrievedDocs });
     });
+    res.send({ result: retrievedDocs });
 });
 
 app.get('/getUtente/:id', async (req, res) => {   //check
@@ -183,9 +208,8 @@ app.get('/getUtente/:id', async (req, res) => {   //check
     let retrievedDocs = new Array();
     await cursore.forEach(documento => {
         retrievedDocs.push(documento);
-        res.send({ result: retrievedDocs });
-
     });
+    res.send({ result: retrievedDocs });
 });
 
 app.put('/cambiaAff/:id', async (req, res) => {
@@ -231,3 +255,4 @@ app.put('/modificaUt/:id', async (req, res) => {
     });
     res.send({ result: dbResult });
 });
+

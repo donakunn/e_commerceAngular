@@ -26,6 +26,7 @@ import { ProdottiService } from './services/prodotti.service';
 import { CartComponent } from './cart/cart.component';
 import { CartproductComponent } from './cartproduct/cartproduct.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { UtentiService } from './services/utenti.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CategorieService, ProdottiService],
+  providers: [CategorieService, ProdottiService, UtentiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

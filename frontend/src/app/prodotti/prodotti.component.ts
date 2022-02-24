@@ -14,9 +14,8 @@ export class ProdottiComponent implements OnInit {
   constructor(private listaProdottiService : ProdottiService) { }
 
   ngOnInit(): void {
-    this.listaProdottiService.getProdotti().subscribe( (receivedData : any) =>{ //equivalente fetch, subscribe tipo then
-      this.listaProdotti = receivedData;
+    this.listaProdottiService.getProdotti().subscribe( (receivedData : any) =>{ 
+      this.listaProdotti = receivedData.result;
     })
   }
-
 }

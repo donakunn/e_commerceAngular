@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Utente } from '../model/utente.model';
+import { UtentiService } from '../services/utenti.service';
 
 @Component({
   selector: 'app-registrazione',
@@ -12,6 +13,8 @@ export class RegistrazioneComponent implements OnInit {
   @ViewChild('labelNome') labelNome: ElementRef;
   @ViewChild('labelCognome') labeCognome: ElementRef;
   @ViewChild('inputCognome') inputCognome: ElementRef;
+
+  registrazioneCompleta : boolean = false;
 
   formUtente = this.fb.group({  
     nome: ['', Validators.required],
@@ -31,7 +34,7 @@ export class RegistrazioneComponent implements OnInit {
   })
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private utenteService : UtentiService) {
 
   }
 
@@ -45,7 +48,10 @@ export class RegistrazioneComponent implements OnInit {
       this.formUtente.value.nazione, this.formUtente.value.via, this.formUtente.value.cap,
       this.formUtente.value.comune, this.formUtente.value.provincia, this.formUtente.value.telefono,
       this.formUtente.value.email, this.formUtente.value.username, this.formUtente.value.password);
-    console.log(utenteInserito);
+
+      this.utenteService.registrati(utenteInserito).subscribe((res) => {
+        alert('Utente Inserito correttamente');
+      });
   }
 
 
@@ -61,5 +67,4 @@ export class RegistrazioneComponent implements OnInit {
       this.inputCognome.nativeElement.hidden = true;
     }
   }
-
 }

@@ -11,17 +11,11 @@ export class CategoriesComponent implements OnInit {
 
   listaCategorie : Categoria[];
   
-  constructor(private listaCategorieService : CategorieService) {
-
-  }
+  constructor(private listaCategorieService : CategorieService) {}
 
   ngOnInit(): void {
-
     this.listaCategorieService.getCategorie().subscribe( (receivedData : any) =>{ 
-      console.log(receivedData.result);
     this.listaCategorie = receivedData.result;
-    console.log(this.listaCategorie);
-    
     })
   }
 
